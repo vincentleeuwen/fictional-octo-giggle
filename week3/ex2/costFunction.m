@@ -23,9 +23,7 @@ grad = zeros(size(theta));
 %
 
 % The hypothesis (also called the prediction) is simply the product of X and theta and the sigmoid.
-
 h = sigmoid(X * theta);
-
 a = -y' * log(h);
 b = (1-y') * log((1-h))
 

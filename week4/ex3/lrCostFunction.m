@@ -40,7 +40,7 @@ grad = zeros(size(theta));
 h = sigmoid(X * theta);
 
 a = -y' * log(h);
-b = (1-y') * log((1-h))
+b = (1-y') * log((1-h));
 error = a - b;
 
 % We want the regularization to exclude the bias feature, so we can set theta(1) to zero.
@@ -56,11 +56,7 @@ J = sum(error) / m + reg_term;
 
 another_error = h - y;
 tmp = (sum(another_error .* X) / m) + theta' * (lambda / m);
-grad = tmp'
-
-
-
-
+grad = tmp';
 
 % =============================================================
 
