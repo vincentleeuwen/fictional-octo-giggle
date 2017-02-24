@@ -5,14 +5,15 @@ function p = predict(Theta1, Theta2, X)
 
 % Useful values
 m = size(X, 1);
-num_labels = size(Theta2, 1);
+num_labels = size(Theta2, 1)
 
-% You need to return the following variables correctly 
+% You need to return the following variables correctly
 p = zeros(size(X, 1), 1);
+
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Complete the following code to make predictions using
-%               your learned neural network. You should set p to a 
+%               your learned neural network. You should set p to a
 %               vector containing labels between 1 to num_labels.
 %
 % Hint: The max function might come in useful. In particular, the max
@@ -21,7 +22,22 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% 1) add a column of ones to X
+a1 = [ones(size(X, 1), 1) X];
 
+% 2) multiply by Theta1 and you have 'z2'.
+z2 = a1 * Theta1';
+
+% 3) Compute the sigmoid() of 'z2', then add a column of 1's, and it becomes 'a2'
+tmp = sigmoid(z2);
+a2 = [ones(size(tmp, 1), 1) tmp];
+
+% Multiply by Theta2, compute the sigmoid() and it becomes 'a3'.
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+
+% Keep the vector of the indexes where the highest values were found. These are your predictions.
+[o, p] = max(a3, [], 2);
 
 
 
