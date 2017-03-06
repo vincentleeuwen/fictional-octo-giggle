@@ -64,14 +64,16 @@ error = tmp_a - tmp_b;
 J = sum(sum(error) / m);
 
 % Trim off the rirst column as it contains the bias param
-Theta1(:,[1]) = []
-Theta2(:,[1]) = []
+Theta1(:,[1]) = [];
+Theta2(:,[1]) = [];
 
+% Get the product of Theta1^2 & Theta2^2
 t1 = sum(sum(Theta1 .* Theta1));
 t2 = sum(sum(Theta2 .* Theta2));
-reg_term = (t1 + t2) * lambda / (2 * m)
-
+% calculate the reg_terma nd add it to previously obtained J
+reg_term = (t1 + t2) * lambda / (2 * m);
 J += reg_term;
+
 
 % tmp = (sum(error .* X) / m) + theta' * (lambda / m);
 % grad = tmp';
@@ -101,24 +103,6 @@ J += reg_term;
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 % -------------------------------------------------------------
 
