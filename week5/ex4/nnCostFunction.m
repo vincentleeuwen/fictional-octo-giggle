@@ -63,23 +63,18 @@ tmp_b = (1-y_matrix) .* log((1-a3));
 error = tmp_a - tmp_b;
 J = sum(sum(error) / m);
 
-% Trim off the rirst column as it contains the bias param
-Theta1(:,[1]) = [];
-Theta2(:,[1]) = [];
+% Strip off the first column as it contains the bias param
+reg_theta1 = Theta1;
+reg_theta1(:,[1]) = [];
+reg_theta2 = Theta2;
+reg_theta2(:,[1]) = [];
 
 % Get the product of Theta1^2 & Theta2^2
-t1 = sum(sum(Theta1 .* Theta1));
-t2 = sum(sum(Theta2 .* Theta2));
+t1 = sum(sum(reg_theta1 .* reg_theta1));
+t2 = sum(sum(reg_theta2 .* reg_theta2));
 % calculate the reg_terma nd add it to previously obtained J
 reg_term = (t1 + t2) * lambda / (2 * m);
 J += reg_term;
-
-
-% tmp = (sum(error .* X) / m) + theta' * (lambda / m);
-% grad = tmp';
-
-%
-% J = sum(sum(error)) / m;
 
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
@@ -95,6 +90,23 @@ J += reg_term;
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the
 %               first time.
+
+% 1) forward propagation, see above
+
+% 2) d3 is the difference between a3 and the y_matrix. The dimensions are the same as both, (m x r).
+d3 = a3 - y_matrix;
+
+% Theta2(:,2:end)
+% 4 d2
+d2 = (d3 * Theta2(:,2:end)) .* sigmoidGradient(z2)
+
+Delta1 = (a1' * d2)'
+Delta2 = (a2' * d3)'
+
+Theta1_grad = Delta1 / m;
+Theta2_grad = Delta2 / m;
+
+% disp(z2);
 %
 % Part 3: Implement regularization with the cost function and gradients.
 %
