@@ -98,16 +98,20 @@ d3 = a3 - y_matrix;
 
 % Theta2(:,2:end)
 % 4 d2
-d2 = (d3 * Theta2(:,2:end)) .* sigmoidGradient(z2)
+d2 = (d3 * Theta2(:,2:end)) .* sigmoidGradient(z2);
 
-Delta1 = (a1' * d2)'
-Delta2 = (a2' * d3)'
+Delta1 = (a1' * d2)';
+Delta2 = (a2' * d3)';
 
-Theta1_grad = Delta1 / m;
-Theta2_grad = Delta2 / m;
+% set first column to zero to get regularization
+Theta1(:,1) = 0;
+Theta2(:,1) = 0;
+reg_theta_1 = Theta1 * lambda / m;
+reg_theta_2 = Theta2 * lambda / m;
 
-% disp(z2);
-%
+Theta1_grad = Delta1 / m + reg_theta_1;
+Theta2_grad = Delta2 / m + reg_theta_2;
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
@@ -115,6 +119,7 @@ Theta2_grad = Delta2 / m;
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
+
 
 % -------------------------------------------------------------
 
