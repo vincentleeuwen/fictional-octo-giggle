@@ -106,11 +106,11 @@ Delta2 = (a2' * d3)';
 % set first column to zero to get regularization
 Theta1(:,1) = 0;
 Theta2(:,1) = 0;
-reg_theta_1 = Theta1 * lambda / m;
-reg_theta_2 = Theta2 * lambda / m;
+reg_theta_1_term = Theta1 * lambda / m;
+reg_theta_2_term = Theta2 * lambda / m;
 
-Theta1_grad = Delta1 / m + reg_theta_1;
-Theta2_grad = Delta2 / m + reg_theta_2;
+Theta1_grad = Delta1 / m + reg_theta_1_term;
+Theta2_grad = Delta2 / m + reg_theta_2_term;
 
 % Part 3: Implement regularization with the cost function and gradients.
 %
