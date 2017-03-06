@@ -58,13 +58,23 @@ z3 = a2 * Theta2';
 a3 = sigmoid(z3);
 %
 
-
-
 tmp_a = -y_matrix .* log(a3);
 tmp_b = (1-y_matrix) .* log((1-a3));
 error = tmp_a - tmp_b;
 J = sum(sum(error) / m);
 
+% Trim off the rirst column as it contains the bias param
+Theta1(:,[1]) = []
+Theta2(:,[1]) = []
+
+t1 = sum(sum(Theta1 .* Theta1));
+t2 = sum(sum(Theta2 .* Theta2));
+reg_term = (t1 + t2) * lambda / (2 * m)
+
+J += reg_term;
+
+% tmp = (sum(error .* X) / m) + theta' * (lambda / m);
+% grad = tmp';
 
 %
 % J = sum(sum(error)) / m;
