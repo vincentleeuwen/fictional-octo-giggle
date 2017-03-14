@@ -23,9 +23,9 @@ error = h - y;
 error_squared = error .^2;
 J = sum(error_squared) / (2 * m);
 
-
 theta(1) = 0;
-grad = (sum(error .* X) / m) + theta' * (lambda / m)';
+% don't forget to set dimension of sum() to one => sum(X, 1)
+grad = (sum((error .* X), 1) / m) + theta' * (lambda / m)';
 reg_term = (theta' * theta) * (lambda / (2 * m));
 J += reg_term;
 
