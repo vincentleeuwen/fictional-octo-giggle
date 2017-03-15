@@ -58,8 +58,8 @@ for i = 1:m
     theta = trainLinearReg(X(1:i, :), y(1:i), lambda);
     [Jtrain, grad] = linearRegCostFunction(X(1:i, :), y(1:i), theta, 0);
     error_train(i) = Jtrain;
-    % then the cross validation set
-    [Jcv, grad] = linearRegCostFunction(Xval(1:i, :), yval(1:i), theta, 0);
+    % then test the same theta's over the entire validation set
+    [Jcv, grad] = linearRegCostFunction(Xval, yval, theta, 0);
     error_val(i) = Jcv;
 end
 
