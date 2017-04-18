@@ -15,7 +15,7 @@ function [centroids, idx] = runkMeans(X, initial_centroids, ...
 
 % Set default value for plot progress
 if ~exist('plot_progress', 'var') || isempty(plot_progress)
-    plot_progress = true;
+    plot_progress = false;
 end
 
 % Plot the data if we are plotting progress
